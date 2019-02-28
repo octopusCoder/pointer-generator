@@ -1,8 +1,22 @@
-*Note: this code is no longer actively maintained. However, feel free to use the Issues section to discuss the code with other users. Some users have updated this code for newer versions of Tensorflow and Python - see information below and Issues section.*
+This repository contains code for the ACL 2017 paper *[Get To The Point: Summarization with Pointer-Generator Networks](https://arxiv.org/abs/1704.04368)*. 
 
----
+## Updated by jeb[2019.02.20]
+1. fix bug in run_summarization.py line 297.
+2. Updated make_datafiles.py for general train files.
+3. Add make_data.py for a single file input.
 
-This repository contains code for the ACL 2017 paper *[Get To The Point: Summarization with Pointer-Generator Networks](https://arxiv.org/abs/1704.04368)*. For an intuitive overview of the paper, read the [blog post](http://www.abigailsee.com/2017/04/16/taming-rnns-for-better-summarization.html).
+```
+# original
+for key,val in FLAGS.__flags.items(): # for each flag
+    if key in hparam_list: # if it's in the list
+      hps_dict[key] = val # add it to the dict
+
+# now
+  for key in FLAGS:
+    if key in hparam_list:
+      hps_dict[key] = FLAGS[key].value
+```
+`Tensorflow FLAGS changed after 1.4`
 
 ## Looking for test set output?
 The test set output of the models described in the paper can be found [here](https://drive.google.com/file/d/0B7pQmm-OfDv7MEtMVU5sOHc5LTg/view?usp=sharing).
@@ -14,10 +28,6 @@ A pretrained model is available here:
 
 (The only difference between these two is the naming of some of the variables in the checkpoint. Tensorflow 1.0 uses `lstm_cell/biases` and `lstm_cell/weights` whereas Tensorflow 1.2.1 uses `lstm_cell/bias` and `lstm_cell/kernel`).
 
-**Note**: This pretrained model is *not* the exact same model that is reported in the paper. That is, it is the same architecture, trained with the same settings, but resulting from a different training run. Consequently this pretrained model has slightly lower ROUGE scores than those reported in the paper. This is probably due to us slightly overfitting to the randomness in our original experiments (in the original experiments we tried various hyperparameter settings and selected the model that performed best). Repeating the experiment once with the same settings did not perform quite as well. Better results might be obtained from further hyperparameter tuning.
-
-**Why can't you release the trained model reported in the paper?** Due to changes to the code between the original experiments and the time of releasing the code (e.g. TensorFlow version changes, lots of code cleanup), it is not possible to release the original trained model files. 
-
 ## Looking for CNN / Daily Mail data?
 Instructions are [here](https://github.com/abisee/cnn-dailymail).
 
@@ -27,8 +37,6 @@ This code is based on the [TextSum code](https://github.com/tensorflow/models/tr
 This code was developed for Tensorflow 0.12, but has been updated to run with Tensorflow 1.0.
 In particular, the code in attention_decoder.py is based on [tf.contrib.legacy_seq2seq_attention_decoder](https://www.tensorflow.org/api_docs/python/tf/contrib/legacy_seq2seq/attention_decoder), which is now outdated.
 Tensorflow 1.0's [new seq2seq library](https://www.tensorflow.org/api_guides/python/contrib.seq2seq#Attention) probably provides a way to do this (as well as beam search) more elegantly and efficiently in the future.
-
-**Python 3 version**: This code is in Python 2. If you want a Python 3 version, see [@becxer's fork](https://github.com/becxer/pointer-generator/).
 
 ## How to run
 
