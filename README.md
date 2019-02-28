@@ -1,7 +1,7 @@
 This repository contains code for the ACL 2017 paper *[Get To The Point: Summarization with Pointer-Generator Networks](https://arxiv.org/abs/1704.04368)*. 
 
 ## Updated by oc[2019.02.20]
-1. fix bug in run_summarization.py line 297.
+1. Fix bug in run_summarization.py line 297.
 2. Updated make_datafiles.py for general train files.
 3. Add make_data.py for a single file input.
 
